@@ -40,12 +40,12 @@ Pod::Spec.new do |s|
       # Presently, there's no special SDK or arch for maccatalyst,
       # so we need to hackily use the "IS_MACCATALYST" build flag
       # to set the appropriate cargo target
-      'CARGO_BUILD_TARGET_MAC_CATALYST_ARM_' => 'aarch64-apple-darwin',
-      'CARGO_BUILD_TARGET_MAC_CATALYST_ARM_YES' => 'aarch64-apple-ios-macabi',
-      'CARGO_BUILD_TARGET[sdk=macosx*][arch=arm64]' => '$(CARGO_BUILD_TARGET_MAC_CATALYST_ARM_$(IS_MACCATALYST))',
-      'CARGO_BUILD_TARGET_MAC_CATALYST_X86_' => 'x86_64-apple-darwin',
-      'CARGO_BUILD_TARGET_MAC_CATALYST_X86_YES' => 'x86_64-apple-ios-macabi',
-      'CARGO_BUILD_TARGET[sdk=macosx*][arch=*]' => '$(CARGO_BUILD_TARGET_MAC_CATALYST_X86_$(IS_MACCATALYST))',
+      # 'CARGO_BUILD_TARGET_MAC_CATALYST_ARM_' => 'aarch64-apple-darwin',
+      # 'CARGO_BUILD_TARGET_MAC_CATALYST_ARM_YES' => 'aarch64-apple-ios-macabi',
+      # 'CARGO_BUILD_TARGET[sdk=macosx*][arch=arm64]' => '$(CARGO_BUILD_TARGET_MAC_CATALYST_ARM_$(IS_MACCATALYST))',
+      # 'CARGO_BUILD_TARGET_MAC_CATALYST_X86_' => 'x86_64-apple-darwin',
+      # 'CARGO_BUILD_TARGET_MAC_CATALYST_X86_YES' => 'x86_64-apple-ios-macabi',
+      # 'CARGO_BUILD_TARGET[sdk=macosx*][arch=*]' => '$(CARGO_BUILD_TARGET_MAC_CATALYST_X86_$(IS_MACCATALYST))',
 
       'ARCHS[sdk=iphonesimulator*]' => 'x86_64 arm64',
       'ARCHS[sdk=iphoneos*]' => 'arm64',
@@ -71,9 +71,7 @@ Pod::Spec.new do |s|
     set -euo pipefail
     CARGO_BUILD_TARGET=aarch64-apple-ios swift/build_ffi.sh --release
     CARGO_BUILD_TARGET=x86_64-apple-ios swift/build_ffi.sh --release
-    CARGO_BUILD_TARGET=aarch64-apple-ios-sim swift/build_ffi.sh --release --use-xargo
-    CARGO_BUILD_TARGET=x86_64-apple-ios-macabi swift/build_ffi.sh --release --use-xargo
-    CARGO_BUILD_TARGET=aarch64-apple-ios-macabi swift/build_ffi.sh --release --use-xargo
+    CARGO_BUILD_TARGET=aarch64-apple-ios-sim swift/build_ffi.sh --release
   )
 
   s.test_spec 'Tests' do |test_spec|
